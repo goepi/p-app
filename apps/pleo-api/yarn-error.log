@@ -1,0 +1,56 @@
+Arguments: 
+  /usr/local/Cellar/node/12.10.0/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js install --mutex network:42424 --non-interactive
+
+PATH: 
+  /Users/marcusegues/Projects/interview-tests/pleo-app/apps/pleo-api/node_modules/.bin:/Users/marcusegues/Projects/interview-tests/pleo-app/apps/node_modules/.bin:/Users/marcusegues/Projects/interview-tests/pleo-app/node_modules/.bin:/Users/marcusegues/Projects/interview-tests/node_modules/.bin:/Users/marcusegues/Projects/node_modules/.bin:/Users/marcusegues/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/usr/local/Cellar/node/12.10.0/bin:/Users/marcusegues/.rbenv/shims:/Users/marcusegues/bin:/usr/local/bin:/Users/marcusegues/anaconda/bin:/Users/marcusegues/.nvm/versions/node/v6.17.1/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Users/marcusegues/Projects/interview-tests/pleo-app/node_modules/.bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/Users/marcusegues/Library/Android/sdk/tools:/Users/marcusegues/Library/Android/sdk/platform-tools:/Users/marcusegues/.local/bin
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  12.10.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/pleo-types: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:66830:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:140464:22)
+      at Request.emit (events.js:209:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141436:10)
+      at Request.emit (events.js:209:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141358:12)
+      at Object.onceWrapper (events.js:298:28)
+      at IncomingMessage.emit (events.js:214:15)
+      at endReadableNT (_stream_readable.js:1178:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+  	"name": "pleo-api",
+  	"version": "0.0.01",
+  	"dependencies": {
+  		"debug": "~2.6.9",
+  		"express": "~4.16.0",
+  		"express-fileupload": "^0.4.0",
+  		"http-errors": "~1.6.2",
+  		"morgan": "~1.9.0",
+  		"pleo-types": "^0.0.01"
+  	},
+  	"devDependencies": {
+  		"@types/express": "^4.16.0",
+  		"@types/express-fileupload": "^0.4.0",
+  		"@types/http-errors": "^1.6.1",
+  		"nodemon": "^2.0.2",
+  		"prettier": "1.14.2",
+  		"ts-node": "^7.0.1",
+  		"typescript": "^3.0.3"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

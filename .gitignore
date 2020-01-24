@@ -1,0 +1,14 @@
+node_modules
+lerna-debug.log
+.npm-debug.log
+.idea
+
+# ignore builds
+/**/dist/
+
+https
+
+apps/pleo-api/src/.data
+apps/pleo-fe/envs/
+
+**/*/build
