@@ -48,4 +48,4 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(5000, () => console.log('API running at http://localhost:3000'));
+app.listen(5000, () => console.log('API running at http://localhost:5000'));

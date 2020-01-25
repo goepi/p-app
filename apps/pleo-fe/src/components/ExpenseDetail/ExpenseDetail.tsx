@@ -1,3 +1,8 @@
 import React from 'react';
+import { ExpenseDto } from 'pleo-types';
 
-export const ExpenseDetail = () => <div>Hello</div>;
+interface Props {
+  expense: ExpenseDto | null;
+}
+
+export const ExpenseDetail = (props: Props) => <div>Hello</div>;

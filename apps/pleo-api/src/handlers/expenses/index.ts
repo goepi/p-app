@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { dataInterface } from '../../data';
 import { v4 } from 'uuid';
-import { Comment } from 'pleo-types';
 import path from 'path';
+import { Comment } from 'pleo-types/src/comments';
 
 export const expensesHandler = {
   readExpenses: (req: Request, res: Response) => {
@@ -11,17 +11,26 @@ export const expensesHandler = {
 
     dataInterface.read('expenses', 'expenses', (err, allExpenses) => {
       if (!err && allExpenses) {
-        const expenses = allExpenses
-          .sort((a, b) => (Date.parse(a.date) < Date.parse(b.date) ? -1 : 1))
-          .slice(offset, offset + limit)
-          .map((expense, index) => ({ ...expense, index: offset + index }));
-
-        res.status(200).send({ expenses, total: expenses.length });
+        dataInterface.read('comments', 'comments', (readCommentsErr, comments) => {
+          if (!readCommentsErr && comments !== undefined) {
+            const expenses = allExpenses
+              .sort((a, b) => (a.date > b.date ? -1 : 1))
+              .slice(offset, offset + limit)
+              .map((expense, index) => ({
+                ...expense,
+                comments: expense.comments.map(commentId => comments[commentId]),
+              }));
+            res.status(200).send({ expenses, total: expenses.length });
+          } else {
+            res.status(500);
+          }
+        });
       } else {
         res.status(500);
       }
     });
   },
+
   readExpense: (req: Request, res: Response) => {
     const id = req.params.id;
 

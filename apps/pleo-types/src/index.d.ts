@@ -1,28 +1,4 @@
-export interface Comment {
-    id: string;
-    text: string;
-    expenseId: string;
-    date: number;
-}
+export * from './comments'
+export * from './expenses';
+export * from './api'
 
-export interface Expense {
-    id: string;
-    amount: {
-        value: string;
-        currency: string;
-    };
-    date: string;
-    merchant: string;
-    receipts: any[];
-    comments: string[];
-    category: string;
-    user: {
-        first: string;
-        last: string;
-        email: string;
-    };
-}
-
-export interface Comments {
-    [id: string]: Comment
-}

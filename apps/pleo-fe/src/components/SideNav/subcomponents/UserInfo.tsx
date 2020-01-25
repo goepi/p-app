@@ -15,6 +15,6 @@ const Container = styled.div<Props>`
 
 export const UserInfo = (props: Props) => (
   <Container marginTop={props.marginTop}>
-    <Avatar length={75} />
+    <Avatar length={'75px'} text={'M'} />
   </Container>
 );

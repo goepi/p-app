@@ -1,27 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TextRegular } from '../Text/Text';
 
 interface Props {
-  length: number;
+  length: string;
+  text: string;
+  backgroundColor?: string;
+  fontSize?: string;
 }
 
-const Circle = styled.div<Props>`
-  width: ${props => props.length}px;
-  height: ${props => props.length}px;
-  border-radius: ${props => props.length / 2}px;
-  background-color: magenta;
+const Circle = styled.div<Pick<Props, 'length' | 'backgroundColor'>>`
+  width: ${props => props.length};
+  height: ${props => props.length};
+  border-radius: ${props => props.length};
+  background-color: ${props => props.backgroundColor || 'magenta'};
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const Text = styled.span`
-  font-size: 3em;
-`;
-
 export const Avatar = (props: Props) => (
-  <Circle length={props.length}>
-    <Text>M</Text>
+  <Circle length={props.length} backgroundColor={props.backgroundColor}>
+    <TextRegular text={props.text} fontSize={props.fontSize || '3em'} />
   </Circle>
 );

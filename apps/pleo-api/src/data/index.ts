@@ -2,9 +2,9 @@
 import fs from 'fs';
 import path from 'path';
 import { parseJsonToObject } from '../utils';
-import { Expense } from 'pleo-types';
 import { CallbackError } from '../types/errors';
-import { Comment, Comments } from 'pleo-types';
+import { Expense } from 'pleo-types/src/expenses';
+import { Comment, Comments } from 'pleo-types/src/comments';
 
 type createExpenseCallback = (err: CallbackError | false, data?: Expense) => void;
 type createCommentCallback = (err: CallbackError | false, data?: Comment) => void;
@@ -19,12 +19,12 @@ interface DataInterface {
   read(dir: 'expenses', file: string, callback: readExpensesCallback): void;
   read(dir: 'comments', file: string, callback: readCommentsCallback): void;
   update(
-    dir: 'expenses' | 'comments',
+    dir: 'expenses',
     file: string,
-    data: Expense[] | Comments,
+    data: Expense[],
     callback: (err: CallbackError | false) => void
   ): void;
-  update(dir: 'comments', file: string, data: Comment, callback: (err: CallbackError | false) => void): void;
+  update(dir: 'comments', file: string, data: Comments, callback: (err: CallbackError | false) => void): void;
   delete(dir: 'expenses' | 'comments', file: string, callback: (err: CallbackError | false) => void): void;
 }
 
