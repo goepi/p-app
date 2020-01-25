@@ -1,0 +1,26 @@
+@import '../../node_modules/normalize.css/normalize.css';
+
+@font-face {
+    font-family: "roboto-regular";
+    src: url("fonts/Roboto-Regular.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: "roboto-medium";
+    src: url("fonts/Roboto-Medium.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: "roboto-bold";
+    src: url("fonts/Roboto-Bold.ttf") format("truetype")
+}
+
+html, body, #root {
+    height: 100%;
+    font-family: roboto-regular, sans-serif;
+    color: dimgray;
+}
+
+a {
+    color: black;
+}

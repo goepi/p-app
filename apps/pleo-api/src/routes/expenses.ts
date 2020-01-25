@@ -7,7 +7,7 @@ router.get('/', expensesHandler.readExpenses);
 
 router.get('/:id', expensesHandler.readExpense);
 
-router.post('/:id', expensesHandler.updateExpense);
+router.post('/:id/comments', expensesHandler.updateExpense);
 
 router.post('/:id/receipts', expensesHandler.createExpenseReceipt);
 
