@@ -2,6 +2,7 @@ export interface Comment {
     id: string;
     text: string;
     expenseId: string;
+    date: number;
 }
 
 export interface Expense {
@@ -13,11 +14,15 @@ export interface Expense {
     date: string;
     merchant: string;
     receipts: any[];
-    comment: string;
+    comments: string[];
     category: string;
     user: {
         first: string;
         last: string;
         email: string;
     };
+}
+
+export interface Comments {
+    [id: string]: Comment
 }

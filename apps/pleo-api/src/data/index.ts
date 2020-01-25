@@ -1,24 +1,29 @@
 // module for storing and editing data saved to disk
 import fs from 'fs';
 import path from 'path';
-import { parseJsonToObject } from '../utils/json';
+import { parseJsonToObject } from '../utils';
 import { Expense } from 'pleo-types';
 import { CallbackError } from '../types/errors';
-import { Comment } from 'pleo-types';
+import { Comment, Comments } from 'pleo-types';
 
 type createExpenseCallback = (err: CallbackError | false, data?: Expense) => void;
 type createCommentCallback = (err: CallbackError | false, data?: Comment) => void;
 
-type readExpenseCallback = (err: CallbackError | false, data?: Expense) => void;
-type readCommentsCallback = (err: CallbackError | false, data?: Comment[]) => void;
+type readExpensesCallback = (err: CallbackError | false, data?: Expense[]) => void;
+type readCommentsCallback = (err: CallbackError | false, data?: Comments) => void;
 
 interface DataInterface {
   baseDir: string;
-  create(dir: 'expenses', file: string, data: Expense, callback: createExpenseCallback): void;
+  create(dir: 'expenses', file: string, data: Expense[], callback: createExpenseCallback): void;
   create(dir: 'comments', file: string, data: Comment, callback: createCommentCallback): void;
-  read(dir: 'expenses', file: string, callback: readExpenseCallback): void;
+  read(dir: 'expenses', file: string, callback: readExpensesCallback): void;
   read(dir: 'comments', file: string, callback: readCommentsCallback): void;
-  update(dir: 'expenses', file: string, data: Expense, callback: (err: CallbackError | false) => void): void;
+  update(
+    dir: 'expenses' | 'comments',
+    file: string,
+    data: Expense[] | Comments,
+    callback: (err: CallbackError | false) => void
+  ): void;
   update(dir: 'comments', file: string, data: Comment, callback: (err: CallbackError | false) => void): void;
   delete(dir: 'expenses' | 'comments', file: string, callback: (err: CallbackError | false) => void): void;
 }
@@ -30,7 +35,7 @@ export const dataInterface: DataInterface = {
   create: (
     dir: 'expenses' | 'comments',
     file: string,
-    data: Expense | Comment,
+    data: Expense[] | Comment,
     callback: createExpenseCallback | createCommentCallback
   ) => {
     const filePath = `${dataInterface.baseDir}/${dir}/${file}.json`;
@@ -48,22 +53,22 @@ export const dataInterface: DataInterface = {
               if (!closeErr) {
                 callback(false);
               } else {
-                callback({ error: 'Error closing new file' });
+                callback({ error: `Error closing new file: ${closeErr}` });
               }
             });
           } else {
-            callback({ error: 'Error writing to new file' });
+            callback({ error: `Error writing to new file: ${writeErr}` });
           }
         });
       } else {
-        callback({ error: 'Could not create new file: ' + openErr });
+        callback({ error: `Could not create new file: ${openErr}` });
       }
     });
   },
   read: (
     dir: 'expenses' | 'comments',
     file: string,
-    callback: readExpenseCallback | readCommentsCallback
+    callback: readExpensesCallback | readCommentsCallback
   ) => {
     const filePath = `${dataInterface.baseDir}/${dir}/${file}.json`;
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -79,7 +84,7 @@ export const dataInterface: DataInterface = {
   update: (
     dir: 'expenses' | 'comments',
     file: string,
-    data: Expense | Comment,
+    data: Expense[] | Comments,
     callback: (err: CallbackError | false) => void
   ) => {
     const filePath = `${dataInterface.baseDir}/${dir}/${file}.json`;
@@ -99,15 +104,15 @@ export const dataInterface: DataInterface = {
                   if (!closeErr) {
                     callback(false);
                   } else {
-                    callback({ error: 'Error closing existing file' });
+                    callback({ error: `Error closing existing file: ${closeErr}` });
                   }
                 });
               } else {
-                callback({ error: 'Error writing to existing file' });
+                callback({ error: `Error writing to existing file: ${writeErr}` });
               }
             });
           } else {
-            callback({ error: 'Error truncating file' });
+            callback({ error: `Error truncating file: ${ftruncErr}` });
           }
         });
       } else {
