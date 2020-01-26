@@ -54,14 +54,12 @@ export const expensesHandler = {
   updateExpense: (req: Request, res: Response) => {
     const id = req.params.id;
     const comment = typeof req.body.comment === 'string' ? req.body.comment : false;
-
     if (id && comment) {
       dataInterface.read('expenses', 'expenses', (err, allExpenses) => {
         if (!err && allExpenses) {
           dataInterface.read('comments', 'comments', (readCommentsErr, comments) => {
             if (!readCommentsErr && comments) {
               const expenseIdx = allExpenses.findIndex(expense => expense.id === id);
-
               if (expenseIdx) {
                 const newComment: Comment = {
                   id: v4(),
@@ -78,7 +76,7 @@ export const expensesHandler = {
 
                     dataInterface.update('expenses', 'expenses', allExpenses, updateErr => {
                       if (!updateErr) {
-                        res.status(200);
+                        res.status(200).send({ newComment });
                       }
                     });
                   } else {

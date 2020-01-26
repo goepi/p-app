@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { lightGray } from '../../../styles/colors';
+import { lightBlue, lightGray } from '../../../styles/colors';
 import { Avatar } from '../../Avatar/Avatar';
 import { TextRegular } from '../../Text/TextRegular';
 import { Comment } from 'pleo-types';
@@ -16,25 +16,33 @@ interface Props {
   onSelectExpense: () => void;
 }
 
+const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin-top: 1em;
+`;
+
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  cursor: pointer;
-  margin-top: 1em;
   align-items: center;
 `;
 
-const RightContainer = styled.div`
+const CommentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 1em;
+  margin-left: calc(1em + 60px);
   flex: 1;
+  margin-top: 10px;
 `;
 
 const ExpenseInfo = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 1em;
 `;
 
 const MerchantAndUser = styled.div`
@@ -49,13 +57,13 @@ const MerchantAndUser = styled.div`
 `;
 
 const Comments = styled.div`
-  border-left: 4px solid blue;
+  border-left: 3px solid ${lightBlue(0.5)};
 `;
 
 export const ExpenseRow = (props: Props) => (
-  <RowContainer onClick={props.onSelectExpense}>
-    <UserAvatar firstName={props.user.first} lastName={props.user.last} length={'60px'} />
-    <RightContainer>
+  <ColumnContainer onClick={props.onSelectExpense}>
+    <RowContainer>
+      <UserAvatar firstName={props.user.first} lastName={props.user.last} length={'60px'} />
       <ExpenseInfo>
         <MerchantAndUser>
           <TextStrong text={capitalizeFirstLetters(props.merchant)} />
@@ -63,11 +71,15 @@ export const ExpenseRow = (props: Props) => (
         </MerchantAndUser>
         <TextRegular text={getFormattedAmountWithCurrencyString(props.amount)} />
       </ExpenseInfo>
+    </RowContainer>
+    <CommentsContainer>
       <Comments>
         {props.comments.map(comment => (
-          <TextRegular text={comment.text} />
+          <div>
+            <TextRegular text={comment.text} marginLeft={'0.8em'} />
+          </div>
         ))}
       </Comments>
-    </RightContainer>
-  </RowContainer>
+    </CommentsContainer>
+  </ColumnContainer>
 );
