@@ -1,7 +1,7 @@
 import { RootState } from './types';
 import * as expensesSelectors from './expenses/selectors';
 import { ExpensesByTimestamp } from './expenses/types';
-import { ExpenseDto } from 'pleo-types';
+import { Expense } from 'pleo-types';
 
 export const getAllExpenses = (state: RootState) => expensesSelectors.getAllExpenses(state.expenses);
 
@@ -10,7 +10,7 @@ export const getExpensesByTimestamp = (state: RootState) => {
 
   const expensesByTimestamp: ExpensesByTimestamp = {};
 
-  allExpenses.forEach((expense: ExpenseDto) => {
+  allExpenses.forEach((expense: Expense) => {
     if (expensesByTimestamp[expense.date]) {
       expensesByTimestamp[expense.date].push(expense);
     } else {
@@ -21,7 +21,7 @@ export const getExpensesByTimestamp = (state: RootState) => {
   return expensesByTimestamp;
 };
 
-export const getExpenseById = (state: RootState, id: string | null): ExpenseDto | undefined => {
+export const getExpenseById = (state: RootState, id: string | null): Expense | undefined => {
   if (id === null) {
     return undefined;
   }

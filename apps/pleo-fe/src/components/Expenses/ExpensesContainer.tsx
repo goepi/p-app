@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { RootState } from '../../reducers/types';
 import { getAllExpenses, getExpenseById, getExpensesByTimestamp } from '../../reducers/selectors';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
-import { fetchExpensesAction } from '../../actions/expenses';
+import { deleteExpenseAction, fetchExpensesAction } from '../../actions/expenses';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { ExpenseDto } from 'pleo-types';
+import { Expense } from 'pleo-types';
 
 interface ContainerProps {
   flex: number;
@@ -24,11 +24,12 @@ const PanelContainer = styled.div<ContainerProps>`
 
 interface StateProps {
   expensesByTimestamp: ExpensesByTimestamp;
-  getSelectedExpense: (id: string | null) => ExpenseDto | undefined;
+  getSelectedExpense: (id: string | null) => Expense | undefined;
 }
 
 interface DispatchProps {
   fetchExpenses: () => void;
+  deleteExpense: (expenseId: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -71,6 +72,7 @@ class ExpensesContainerInner extends React.Component<Props, State> {
             expense={
               this.state.selectedExpenseId && this.props.getSelectedExpense(this.state.selectedExpenseId)
             }
+            deleteExpense={this.props.deleteExpense}
           />
         </PanelContainer>
       </>
@@ -85,6 +87,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AnyAction>) => ({
   fetchExpenses: () => dispatch(fetchExpensesAction()),
+  deleteExpense: (expenseId: string) => dispatch(deleteExpenseAction(expenseId)),
 });
 
 export const ExpensesContainer = connect(mapStateToProps, mapDispatchToProps)(ExpensesContainerInner);

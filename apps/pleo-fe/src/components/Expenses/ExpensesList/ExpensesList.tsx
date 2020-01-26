@@ -14,6 +14,7 @@ const Container = styled.div`
 `;
 
 export const ExpensesList = (props: Props) => {
+  console.log(props.expensesByTimestamp);
   return (
     <>
       {Object.keys(props.expensesByTimestamp).map(timestamp => (

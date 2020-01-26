@@ -1,5 +1,5 @@
 import produce, { Draft } from 'immer';
-import { ExpensesActionTypes, RECEIVE_EXPENSES } from '../../actions/expenses';
+import { ExpensesActionTypes, RECEIVE_EXPENSE_DELETED, RECEIVE_EXPENSES } from '../../actions/expenses';
 
 type State = string[];
 
@@ -9,6 +9,9 @@ export const allIds = produce((draft: Draft<State>, action: ExpensesActionTypes)
   switch (action.type) {
     case RECEIVE_EXPENSES: {
       return action.payload.expenses.map(expense => expense.id);
+    }
+    case RECEIVE_EXPENSE_DELETED: {
+      return draft.filter(id => id !== action.payload.expenseId);
     }
   }
 }, initialState);

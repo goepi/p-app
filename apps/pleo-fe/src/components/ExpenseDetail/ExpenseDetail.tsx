@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ExpenseDto } from 'pleo-types';
+import React from 'react';
+import { Expense } from 'pleo-types';
 import { ExpenseDetailHeader } from './ExpenseDetailHeader';
 import { ExpenseInfo } from './ExpenseInfo';
 import {
@@ -13,9 +13,11 @@ import { UserAvatar } from '../Avatar/UserAvatar';
 import { lightGray, whiteSmoke } from '../../styles/colors';
 import { CommentIcon } from '../Icon/CommentIcon';
 import { CommentInputContainer } from '../CommentInput/CommentInputContainer';
+import { TrashIcon } from '../Icon/TrashIcon';
 
 interface Props {
-  expense: ExpenseDto | null;
+  expense: Expense | null;
+  deleteExpense: (expenseId: string) => void;
 }
 
 interface DetailRowProps {
@@ -42,9 +44,7 @@ const Details = styled.div`
   padding-right: 3em;
 `;
 
-export const ExpenseDetail = ({ expense }: Props) => {
-  const [newComment, setNewComment] = useState(false);
-
+export const ExpenseDetail = ({ expense, deleteExpense }: Props) => {
   return (
     <Container>
       {expense ? (
@@ -64,6 +64,10 @@ export const ExpenseDetail = ({ expense }: Props) => {
             <DetailRow clickable={true}>
               <CommentIcon height={'30px'} width={'30px'} color={lightGray} />
               <CommentInputContainer expenseId={expense.id} />
+            </DetailRow>
+            <DetailRow clickable={true} onClick={() => deleteExpense(expense.id)}>
+              <TrashIcon height={'30px'} width={'30px'} color={lightGray} />
+              <TextRegular text={'Delete expense'} marginLeft={'10px'} />
             </DetailRow>
           </Details>
         </>

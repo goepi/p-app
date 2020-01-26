@@ -30,8 +30,7 @@ export const getRequest = async <T>(path: string): Promise<T> => {
   throw new ApiRequestError(response.status, response.statusText);
 };
 
-export const postRequest = async <T>(path: string, body: any): Promise<T> => {
-  console.log(JSON.stringify(body));
+export const postRequest = async <T>(path: string, body: any = {}): Promise<T> => {
   const response = await fetch(
     // in development we are using webpack-dev-server to proxy our request to avoid CORS
     `${process.env.REACT_APP_BASE_URL}${path}`,
@@ -45,6 +44,25 @@ export const postRequest = async <T>(path: string, body: any): Promise<T> => {
   if (response.ok) {
     // Type assertion because camelizeKeys returns Object
     return (await response.json()) as T;
+  }
+
+  throw new ApiRequestError(response.status, response.statusText);
+};
+
+export const deleteRequest = async (path: string, body: any = {}): Promise<undefined> => {
+  const response = await fetch(
+    // in development we are using webpack-dev-server to proxy our request to avoid CORS
+    `${process.env.REACT_APP_BASE_URL}${path}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }
+  );
+
+  if (response.ok) {
+    // Type assertion because camelizeKeys returns Object
+    return;
   }
 
   throw new ApiRequestError(response.status, response.statusText);

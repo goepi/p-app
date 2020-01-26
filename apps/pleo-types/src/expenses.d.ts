@@ -1,3 +1,5 @@
+import { Comment } from './comments';
+
 export interface Expense {
   id: string;
   amount: {
@@ -7,7 +9,7 @@ export interface Expense {
   date: number;
   merchant: string;
   receipts: any[];
-  comments: string[];
+  comments: Comment[];
   category: string;
   user: {
     first: string;

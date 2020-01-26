@@ -1,7 +1,7 @@
-import { ExpenseDto } from 'pleo-types';
+import { Expense } from 'pleo-types';
 
 export interface ExpensesByIdState {
-  [expenseId: string]: ExpenseDto;
+  [expenseId: string]: Expense;
 }
 
 export interface ExpensesState {
@@ -10,5 +10,5 @@ export interface ExpensesState {
 }
 
 export interface ExpensesByTimestamp {
-  [timestamp: number]: ExpenseDto[];
+  [timestamp: number]: Expense[];
 }

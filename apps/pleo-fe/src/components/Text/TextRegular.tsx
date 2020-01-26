@@ -7,6 +7,7 @@ interface Props {
   fontSize?: string;
   fontFamily?: string;
   color?: string;
+  onClick?: () => void;
 }
 
 const Text = styled.span<Pick<Props, 'marginLeft' | 'fontSize' | 'fontFamily'>>`
