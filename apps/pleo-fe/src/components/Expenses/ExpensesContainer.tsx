@@ -1,15 +1,16 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { Expenses } from './Expenses';
 import styled from 'styled-components';
 import { ExpenseDetail } from '../ExpenseDetail/ExpenseDetail';
 import { connect } from 'react-redux';
 import { RootState } from '../../reducers/types';
-import { getAllExpenses, getExpenseById, getExpensesByTimestamp } from '../../reducers/selectors';
+import { getExpensesByTimestamp, getSelectedExpense, getSelectedExpenseId } from '../../reducers/selectors';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
 import { deleteExpenseAction, fetchExpensesAction } from '../../actions/expenses';
-import { AnyAction, Dispatch } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Expense } from 'pleo-types';
+import { receiveSelectExpenseIdAction } from '../../actions/ui/syncActions';
 
 interface ContainerProps {
   flex: number;
@@ -23,26 +24,26 @@ const PanelContainer = styled.div<ContainerProps>`
 `;
 
 interface StateProps {
+  selectedExpenseId: string | null;
+  selectedExpense: Expense | null;
   expensesByTimestamp: ExpensesByTimestamp;
-  getSelectedExpense: (id: string | null) => Expense | undefined;
 }
 
 interface DispatchProps {
   fetchExpenses: () => void;
   deleteExpense: (expenseId: string) => void;
+  selectExpense: (expenseId: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
 
 interface State {
   searchInput: string;
-  selectedExpenseId: string | null;
 }
 
 class ExpensesContainerInner extends React.Component<Props, State> {
   public state = {
     searchInput: '',
-    selectedExpenseId: null,
   };
 
   public componentDidMount() {
@@ -52,8 +53,8 @@ class ExpensesContainerInner extends React.Component<Props, State> {
   public onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ searchInput: e.target.value });
 
-  public onSelectExpense = (id: string) => {
-    this.setState({ selectedExpenseId: id });
+  public onSelectExpense = (expenseId: string) => {
+    this.props.selectExpense(expenseId);
   };
 
   public render() {
@@ -68,12 +69,7 @@ class ExpensesContainerInner extends React.Component<Props, State> {
           />
         </PanelContainer>
         <PanelContainer flex={2}>
-          <ExpenseDetail
-            expense={
-              this.state.selectedExpenseId && this.props.getSelectedExpense(this.state.selectedExpenseId)
-            }
-            deleteExpense={this.props.deleteExpense}
-          />
+          <ExpenseDetail expense={this.props.selectedExpense} deleteExpense={this.props.deleteExpense} />
         </PanelContainer>
       </>
     );
@@ -81,13 +77,15 @@ class ExpensesContainerInner extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: RootState) => ({
+  selectedExpenseId: getSelectedExpenseId(state),
+  selectedExpense: getSelectedExpense(state),
   expensesByTimestamp: getExpensesByTimestamp(state),
-  getSelectedExpense: (id: string | null) => getExpenseById(state, id),
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AnyAction>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, any>) => ({
   fetchExpenses: () => dispatch(fetchExpensesAction()),
   deleteExpense: (expenseId: string) => dispatch(deleteExpenseAction(expenseId)),
+  selectExpense: (expenseId: string) => dispatch(receiveSelectExpenseIdAction(expenseId)),
 });
 
 export const ExpensesContainer = connect(mapStateToProps, mapDispatchToProps)(ExpensesContainerInner);

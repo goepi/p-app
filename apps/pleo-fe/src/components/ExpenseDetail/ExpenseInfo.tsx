@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@ const Container = styled.div`
 export const ExpenseInfo = (props: Props) => (
   <Container>
     <TextRegular text={props.merchant} />
-    <TextRegular text={props.amount} />
+    <TextRegular text={props.amount} fontSize={'2em'} />
     <TextRegular text={props.dateText} />
   </Container>
 );
