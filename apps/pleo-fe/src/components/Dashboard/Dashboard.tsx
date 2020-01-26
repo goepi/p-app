@@ -7,7 +7,7 @@ import { ExpensesContainer } from '../Expenses/ExpensesContainer';
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: 100vh;
 `;
 
 export const Dashboard = () => (

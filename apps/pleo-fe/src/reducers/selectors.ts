@@ -25,5 +25,5 @@ export const getExpenseById = (state: RootState, id: string | null): ExpenseDto 
   if (id === null) {
     return undefined;
   }
-  expensesSelectors.getExpenseById(state.expenses, id);
+  return expensesSelectors.getExpenseById(state.expenses, id);
 };

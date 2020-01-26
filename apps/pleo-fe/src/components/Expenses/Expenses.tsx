@@ -10,6 +10,7 @@ const Container = styled.div``;
 interface Props {
   searchInput: string;
   onSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectExpense: (id: string) => void;
   expensesByTimestamp: ExpensesByTimestamp;
 }
 
@@ -17,6 +18,6 @@ export const Expenses = (props: Props) => (
   <Container>
     <AddButton />
     <SearchBar value={props.searchInput} onChange={props.onSearchInput} />
-    <ExpensesList expensesByTimestamp={props.expensesByTimestamp} />
+    <ExpensesList expensesByTimestamp={props.expensesByTimestamp} onSelectExpense={props.onSelectExpense} />
   </Container>
 );

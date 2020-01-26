@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Avatar } from '../../shared/Avatar';
+import { Avatar } from '../../Avatar/Avatar';
 
 interface Props {
   marginTop?: number;
@@ -15,6 +15,6 @@ const Container = styled.div<Props>`
 
 export const UserInfo = (props: Props) => (
   <Container marginTop={props.marginTop}>
-    <Avatar length={'75px'} text={'M'} />
+    <Avatar length={'75px'} text={'M'} textColor={'white'} />
   </Container>
 );

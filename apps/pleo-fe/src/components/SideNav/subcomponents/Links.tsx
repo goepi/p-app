@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { TextRegular } from '../../Text/Text';
+import { TextRegular } from '../../Text/TextRegular';
 import styled from 'styled-components';
 import { EXPENSES, PROFILE } from '../../../navigation/routes';
 

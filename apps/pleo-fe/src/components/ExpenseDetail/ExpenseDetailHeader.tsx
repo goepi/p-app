@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeaderSvg from './ExpenseDetailHeader.svg';
-import { Avatar } from '../shared/Avatar';
+import { Avatar } from '../Avatar/Avatar';
 import { brightGreen } from '../../styles/colors';
 
 const Container = styled.div`
@@ -19,16 +19,25 @@ const WhiteCircle = styled.div`
   justify-content: center;
   position: absolute;
   left: 50%;
-  bottom: -50%;
-  transform: translate(-50%, -35%);
+  bottom: -27px;
+  transform: translate(-50%);
   background-color: white;
 `;
 
-export const ExpenseDetailHeader = () => (
+interface Props {
+  merchant: string;
+}
+
+export const ExpenseDetailHeader = (props: Props) => (
   <Container>
     <object type="image/svg+xml" width="100%" data={HeaderSvg} />
     <WhiteCircle>
-      <Avatar length={'50px'} fontSize={'30px'} text={'A'} backgroundColor={brightGreen()} />
+      <Avatar
+        length={'50px'}
+        fontSize={'30px'}
+        text={props.merchant.charAt(0)}
+        backgroundColor={brightGreen()}
+      />
     </WhiteCircle>
   </Container>
 );

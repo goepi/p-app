@@ -1,25 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import { lightGray } from '../../../styles/colors';
-import { Avatar } from '../../shared/Avatar';
-import { TextRegular } from '../../Text/Text';
+import { Avatar } from '../../Avatar/Avatar';
+import { TextRegular } from '../../Text/TextRegular';
 import { Comment } from 'pleo-types';
+import { capitalizeFirstLetters, getFormattedAmountWithCurrencyString } from '../../../utils/format';
+import { UserAvatar } from '../../Avatar/UserAvatar';
+import { TextStrong } from '../../Text/TextStrong';
 
 interface Props {
   merchant: string;
   amount: { value: string; currency: string };
   comments: Comment[];
   user: { first: string; last: string };
+  onSelectExpense: () => void;
 }
 
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
+  cursor: pointer;
+  margin-top: 1em;
+  align-items: center;
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 1em;
+  flex: 1;
 `;
 
 const ExpenseInfo = styled.div`
@@ -32,7 +41,11 @@ const MerchantAndUser = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+
+  * {
+    margin-top: 0.4em;
+  }
 `;
 
 const Comments = styled.div`
@@ -40,24 +53,15 @@ const Comments = styled.div`
 `;
 
 export const ExpenseRow = (props: Props) => (
-  <RowContainer>
-    <Avatar
-      backgroundColor={lightGray}
-      length={'30px'}
-      text={`${props.user.first.charAt(0)} ${props.user.last.charAt(0)}`}
-      fontSize={'10px'}
-    />
+  <RowContainer onClick={props.onSelectExpense}>
+    <UserAvatar firstName={props.user.first} lastName={props.user.last} length={'60px'} />
     <RightContainer>
       <ExpenseInfo>
         <MerchantAndUser>
-          <TextRegular text={props.merchant} />
-          <TextRegular text={`${props.user.first} ${props.user.last}`} />
+          <TextStrong text={capitalizeFirstLetters(props.merchant)} />
+          <TextRegular text={`${props.user.first} ${props.user.last}`} color={lightGray} />
         </MerchantAndUser>
-        <TextRegular
-          text={new Intl.NumberFormat('ja-JP', { style: 'currency', currency: props.amount.currency }).format(
-            parseInt(props.amount.value)
-          )}
-        />
+        <TextRegular text={getFormattedAmountWithCurrencyString(props.amount)} />
       </ExpenseInfo>
       <Comments>
         {props.comments.map(comment => (

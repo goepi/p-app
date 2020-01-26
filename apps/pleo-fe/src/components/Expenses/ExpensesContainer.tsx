@@ -13,11 +13,13 @@ import { ExpenseDto } from 'pleo-types';
 
 interface ContainerProps {
   flex: number;
+  overflow?: string;
 }
 
-const Container = styled.div<ContainerProps>`
+const PanelContainer = styled.div<ContainerProps>`
   flex: ${props => props.flex};
   height: 100%;
+  overflow: ${props => props.overflow || 'auto'};
 `;
 
 interface StateProps {
@@ -49,23 +51,28 @@ class ExpensesContainerInner extends React.Component<Props, State> {
   public onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ searchInput: e.target.value });
 
+  public onSelectExpense = (id: string) => {
+    this.setState({ selectedExpenseId: id });
+  };
+
   public render() {
     return (
       <>
-        <Container flex={3}>
+        <PanelContainer flex={3} overflow={'scroll'}>
           <Expenses
             searchInput={this.state.searchInput}
             onSearchInput={this.onSearchInput}
             expensesByTimestamp={this.props.expensesByTimestamp}
+            onSelectExpense={this.onSelectExpense}
           />
-        </Container>
-        <Container flex={2}>
+        </PanelContainer>
+        <PanelContainer flex={2}>
           <ExpenseDetail
             expense={
               this.state.selectedExpenseId && this.props.getSelectedExpense(this.state.selectedExpenseId)
             }
           />
-        </Container>
+        </PanelContainer>
       </>
     );
   }

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TextRegular } from '../Text/Text';
+import { TextRegular } from '../Text/TextRegular';
 
 interface Props {
   length: string;
   text: string;
   backgroundColor?: string;
   fontSize?: string;
+  textColor?: string;
 }
 
 const Circle = styled.div<Pick<Props, 'length' | 'backgroundColor'>>`
@@ -22,6 +23,6 @@ const Circle = styled.div<Pick<Props, 'length' | 'backgroundColor'>>`
 
 export const Avatar = (props: Props) => (
   <Circle length={props.length} backgroundColor={props.backgroundColor}>
-    <TextRegular text={props.text} fontSize={props.fontSize || '3em'} />
+    <TextRegular text={props.text} fontSize={props.fontSize || '3em'} color={props.textColor || 'black'} />
   </Circle>
 );

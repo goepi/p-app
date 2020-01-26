@@ -39,3 +39,23 @@ export const getUserFriendlyDateString = (timestamp: number, showTime: boolean) 
     return date.toLocaleString('en-GB', options);
   }
 };
+
+export const getFormattedAmountWithCurrencyString = ({
+  value,
+  currency,
+}: {
+  value: string;
+  currency: string;
+}) => {
+  try {
+    return new Intl.NumberFormat('ja-JP', { style: 'currency', currency }).format(parseInt(value));
+  } catch (e) {
+    return `${currency} ${value}`;
+  }
+};
+
+export const capitalizeFirstLetters = (str: string) =>
+  str
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
