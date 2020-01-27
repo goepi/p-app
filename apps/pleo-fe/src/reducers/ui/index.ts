@@ -7,7 +7,6 @@ export const ui = produce(
   (draft: Draft<UiState>, action) => {
     switch (action.type) {
       case RECEIVE_SELECT_EXPENSE_ID: {
-        console.log('here');
         draft.selectedExpenseId = action.payload.expenseId;
         break;
       }

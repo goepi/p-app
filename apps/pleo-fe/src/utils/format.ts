@@ -16,12 +16,17 @@ export const getUserFriendlyDateString = (timestamp: number, showTime: boolean) 
 
   const msFullDay = 24 * 60 * 60 * 1000;
 
+  const recentDateOptions: Intl.DateTimeFormatOptions = {
+    minute: 'numeric',
+    hour: 'numeric',
+  };
+
   if (timestamp >= tsStartOfDay && timestamp < tsStartOfDay + msFullDay) {
     // timestamp within 24 hours ahead of start of timestamp's day
-    return showTime ? `Today, ${date.getHours()}:${date.getMinutes()}` : 'Today';
+    return showTime ? `Today, ${date.toLocaleTimeString('en-US', recentDateOptions)}` : 'Today';
   } else if (timestamp < tsStartOfDay && timestamp > tsStartOfDay - msFullDay) {
     // timestamp within 24 hours behind start of timestamp's day
-    return showTime ? `Yesterday, ${date.getHours()}:${date.getMinutes()}` : 'Yesterday';
+    return showTime ? `Yesterday, ${date.toLocaleTimeString('en-US', recentDateOptions)}` : 'Yesterday';
   } else {
     // timestamp before yesterday
     const options: Intl.DateTimeFormatOptions = {
@@ -36,7 +41,7 @@ export const getUserFriendlyDateString = (timestamp: number, showTime: boolean) 
       options.minute = 'numeric';
     }
 
-    return date.toLocaleString('en-GB', options);
+    return date.toLocaleString('en-US', options);
   }
 };
 

@@ -163,6 +163,7 @@ export const expensesHandler = {
     const receipt =
       req.files && req.files.receipt && !Array.isArray(req.files.receipt) ? req.files.receipt : false;
 
+    console.log(receipt, req.files, req.files && req.files.receipt);
     if (receipt) {
       const id = req.params.id;
       if (id) {
@@ -172,22 +173,33 @@ export const expensesHandler = {
 
             if (expense) {
               const receiptId = v4();
-              receipt.mv(path.join(__dirname, '../../.data/receipts'), err => {
+              const type = receipt.mimetype.split('/')[1];
+              receipt.mv(path.join(__dirname, `../../.data/receipts/${receiptId}.${type}`), err => {
                 if (!err) {
                   expense.receipts.push(receiptId);
-                  res.status(200);
+                  dataInterface.update('expenses', 'expenses', allExpenses, writeErr => {
+                    if (!writeErr) {
+                      res.status(200).send(expense);
+                    } else {
+                      res.status(500);
+                    }
+                  });
                 } else {
                   res.status(500);
                 }
               });
+            } else {
+              res.status(400).send('Could not find expense');
             }
           } else {
             res.status(500);
           }
         });
       } else {
-        res.status(400).send('No files uploaded');
+        res.status(400).send('No expense id');
       }
+    } else {
+      res.status(400).send('No files uploaded');
     }
   },
 };

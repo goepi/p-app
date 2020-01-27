@@ -14,6 +14,8 @@ import { lightGray, whiteSmoke } from '../../styles/colors';
 import { CommentIcon } from '../Icon/CommentIcon';
 import { CommentInputContainer } from '../Comments/CommentInput/CommentInputContainer';
 import { TrashIcon } from '../Icon/TrashIcon';
+import { ImageSelectContainer } from './ImageSelect';
+import { TextStrong } from '../Text/TextStrong';
 
 interface Props {
   expense: Expense | null;
@@ -45,6 +47,12 @@ const Details = styled.div`
   padding-right: 3em;
 `;
 
+const Receipts = styled(Details)``;
+
+const ReceiptsRow = styled(DetailRow)`
+  flex-wrap: wrap;
+`;
+
 export const ExpenseDetail = ({ expense, deleteExpense, createComment }: Props) => {
   return (
     <Container>
@@ -71,6 +79,15 @@ export const ExpenseDetail = ({ expense, deleteExpense, createComment }: Props) 
               <TextRegular text={'Delete expense'} marginLeft={'10px'} />
             </DetailRow>
           </Details>
+          <Receipts>
+            <TextStrong text={'Receipts'} />
+            <ReceiptsRow clickable={true}>
+              {expense.receipts.map(receiptId => (
+                <ImageSelectContainer key={receiptId} expenseId={expense.id} receiptId={receiptId} />
+              ))}
+              <ImageSelectContainer expenseId={expense.id} />
+            </ReceiptsRow>
+          </Receipts>
         </>
       ) : null}
     </Container>

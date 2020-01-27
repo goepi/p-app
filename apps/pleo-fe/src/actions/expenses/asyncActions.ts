@@ -2,6 +2,7 @@ import { AnyAction, Dispatch } from 'redux';
 import {
   requestCreateComment,
   requestCreateExpense,
+  requestCreateExpenseReceipt,
   requestDeleteExpense,
   requestGetExpenses,
 } from '../../api/expenses';
@@ -58,5 +59,19 @@ export const createExpenseAction = (
     dispatch(receiveExpensesAction({ expenses: [expense], total: 1 }));
   } catch (e) {
     console.log('Error', e);
+  }
+};
+
+export const createExpenseReceiptAction = (
+  expenseId: string,
+  file: File
+): ThunkAction<Promise<boolean>, RootState, undefined, AnyAction> => async dispatch => {
+  try {
+    const expense = await requestCreateExpenseReceipt(expenseId, file);
+    dispatch(receiveExpensesAction({ expenses: [expense], total: 1 }));
+    return true;
+  } catch (e) {
+    console.log('Error', e);
+    return false;
   }
 };

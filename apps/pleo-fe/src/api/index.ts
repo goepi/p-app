@@ -31,7 +31,6 @@ export const getRequest = async <T>(path: string): Promise<T> => {
 };
 
 export const postRequest = async <T>(path: string, body: any = {}): Promise<T> => {
-  console.log('BODY IS', body, JSON.stringify(body));
   const response = await fetch(
     // in development we are using webpack-dev-server to proxy our request to avoid CORS
     `${process.env.REACT_APP_BASE_URL}${path}`,

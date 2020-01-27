@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { StyledProps } from 'styled-components';
 import { deepPink } from '../../styles/colors';
 
 const Container = styled.div<Pick<Props, 'backgroundColor' | 'marginLeft'>>`
@@ -16,6 +16,7 @@ const Container = styled.div<Pick<Props, 'backgroundColor' | 'marginLeft'>>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 interface Props {

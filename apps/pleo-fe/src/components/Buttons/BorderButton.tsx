@@ -5,7 +5,6 @@ const Button = styled.div<Pick<Props, 'borderColor'>>`
   border: 1px solid;
   padding: 5px 20px;
   border-color: ${props => props.borderColor || 'rgb(204, 204, 204)'};
-  
   border-radius: 30px;
   height: 52px;
   font-size: 15px;
@@ -15,6 +14,7 @@ const Button = styled.div<Pick<Props, 'borderColor'>>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer
 `;
 
 interface Props {

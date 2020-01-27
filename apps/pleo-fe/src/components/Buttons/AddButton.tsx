@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { funBlue, lightBlue, lightGray } from '../../styles/colors';
+import { funBlue, lightGray } from '../../styles/colors';
 import { PlusIcon } from '../Icon/PlusIcon';
 
 interface Props {
