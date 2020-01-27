@@ -4,12 +4,14 @@ import { CreateExpenseFormStateUpdater } from '../Modals/CreateExpenseModalConta
 import styled from 'styled-components';
 import { TextStrong } from '../Text/TextStrong';
 import { AmountInput } from './AmountInput';
+import { CommentInputContainer } from '../CommentInput/CommentInputContainer';
 
 interface Props {
   value: string;
   currency: string;
   date: string;
   merchant: string;
+  currentComment: string;
   // comments: string[]
   updateField: CreateExpenseFormStateUpdater;
 }

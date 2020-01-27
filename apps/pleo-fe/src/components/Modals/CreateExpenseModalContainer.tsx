@@ -11,6 +11,7 @@ interface State {
   currency: string;
   date: string;
   merchant: string;
+  currentComment: string;
   comments: string[];
 }
 
@@ -23,17 +24,17 @@ export class CreateExpenseModalContainer extends React.PureComponent<OwnProps> {
     date: '',
     merchant: '',
     comments: [],
+    currentComment: '',
   };
 
   public updateField = <K extends keyof State>(field: K, value: State[K]) => {
-    console.log(field, value);
     this.setState(state => ({
       [field]: value,
     }));
   };
 
   render() {
-    const { value, merchant, date, currency } = this.state;
+    const { value, merchant, date, currency, currentComment } = this.state;
     return (
       <Modal isVisible={this.props.isVisible}>
         {{
@@ -43,6 +44,7 @@ export class CreateExpenseModalContainer extends React.PureComponent<OwnProps> {
               merchant={merchant}
               date={date}
               currency={currency}
+              currentComment={currentComment}
               updateField={this.updateField}
             />
           ),

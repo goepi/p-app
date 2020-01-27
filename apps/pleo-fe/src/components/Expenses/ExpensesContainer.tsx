@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../../reducers/types';
 import { getExpensesByTimestamp, getSelectedExpense, getSelectedExpenseId } from '../../reducers/selectors';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
-import { deleteExpenseAction, fetchExpensesAction } from '../../actions/expenses';
+import { createCommentAction, deleteExpenseAction, fetchExpensesAction } from '../../actions/expenses';
 import { AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Expense } from 'pleo-types';
@@ -34,6 +34,7 @@ interface DispatchProps {
   fetchExpenses: () => void;
   deleteExpense: (expenseId: string) => void;
   selectExpense: (expenseId: string) => void;
+  createComment: (expenseId: string, comment: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -46,7 +47,7 @@ interface State {
 class ExpensesContainerInner extends React.Component<Props, State> {
   public state = {
     searchInput: '',
-    createExpenseModalVisible: true,
+    createExpenseModalVisible: false,
   };
 
   public componentDidMount() {
@@ -80,7 +81,11 @@ class ExpensesContainerInner extends React.Component<Props, State> {
           />
         </PanelContainer>
         <PanelContainer flex={2}>
-          <ExpenseDetail expense={this.props.selectedExpense} deleteExpense={this.props.deleteExpense} />
+          <ExpenseDetail
+            expense={this.props.selectedExpense}
+            deleteExpense={this.props.deleteExpense}
+            createComment={this.props.createComment}
+          />
         </PanelContainer>
       </>
     );
@@ -97,6 +102,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, any>) => ({
   fetchExpenses: () => dispatch(fetchExpensesAction()),
   deleteExpense: (expenseId: string) => dispatch(deleteExpenseAction(expenseId)),
   selectExpense: (expenseId: string) => dispatch(receiveSelectExpenseIdAction(expenseId)),
+  createComment: (expenseId: string, comment: string) => dispatch(createCommentAction(expenseId, comment)),
 });
 
 export const ExpensesContainer = connect(mapStateToProps, mapDispatchToProps)(ExpensesContainerInner);

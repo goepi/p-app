@@ -18,6 +18,7 @@ import { TrashIcon } from '../Icon/TrashIcon';
 interface Props {
   expense: Expense | null;
   deleteExpense: (expenseId: string) => void;
+  createComment: (expenseId: string, comment: string) => void;
 }
 
 interface DetailRowProps {
@@ -44,7 +45,7 @@ const Details = styled.div`
   padding-right: 3em;
 `;
 
-export const ExpenseDetail = ({ expense, deleteExpense }: Props) => {
+export const ExpenseDetail = ({ expense, deleteExpense, createComment }: Props) => {
   return (
     <Container>
       {expense ? (
@@ -63,7 +64,7 @@ export const ExpenseDetail = ({ expense, deleteExpense }: Props) => {
             </DetailRow>
             <DetailRow clickable={true}>
               <CommentIcon height={'30px'} width={'30px'} color={lightGray} />
-              <CommentInputContainer expenseId={expense.id} />
+              <CommentInputContainer onSubmit={(comment: string) => createComment(expense.id, comment)} />
             </DetailRow>
             <DetailRow clickable={true} onClick={() => deleteExpense(expense.id)}>
               <TrashIcon height={'30px'} width={'30px'} color={lightGray} />

@@ -1,28 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createCommentAction } from '../../actions/expenses';
 import { CommentInput } from './CommentInput';
 
-interface DispatchProps {
-  createComment: (expenseId: string, comment: string) => void;
+interface Props {
+  onSubmit: (comment: string) => void;
 }
-
-interface OwnProps {
-  expenseId: string;
-}
-
-type Props = DispatchProps & OwnProps;
 
 interface State {
   text: string;
   textLines: number;
 }
 
-class CommentInputContainerInner extends React.PureComponent<Props, State> {
+export class CommentInputContainer extends React.PureComponent<Props, State> {
   public state = { text: '', textLines: 1 };
 
   public onSubmitComment = () => {
-    this.props.createComment(this.props.expenseId, this.state.text);
+    this.props.onSubmit(this.state.text);
     this.setState({ text: '', textLines: 1 });
   };
 
@@ -57,7 +49,6 @@ class CommentInputContainerInner extends React.PureComponent<Props, State> {
     return (
       <CommentInput
         value={this.state.text}
-        onSubmit={this.onSubmitComment}
         onChange={this.onInputText}
         onKeyDown={this.onKeyDown}
         onKeyPress={this.onKeyPress}
@@ -66,7 +57,3 @@ class CommentInputContainerInner extends React.PureComponent<Props, State> {
     );
   }
 }
-
-export const CommentInputContainer = connect(null, { createComment: createCommentAction })(
-  CommentInputContainerInner
-);
