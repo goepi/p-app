@@ -17,26 +17,31 @@ interface State {
 
 export type CreateExpenseFormStateUpdater = <K extends keyof State>(field: K, value: State[K]) => void;
 
-export class CreateExpenseModalContainer extends React.PureComponent<OwnProps> {
+export class CreateExpenseModalContainer extends React.PureComponent<OwnProps, State> {
   public state = {
     value: '',
     currency: '',
     date: '',
     merchant: '',
-    comments: [],
     currentComment: '',
+    comments: [],
   };
 
-  public updateField = <K extends keyof State>(field: K, value: State[K]) => {
+  public updateField: CreateExpenseFormStateUpdater = (field, value) => {
+    const newState = { ...this.state, [field]: value };
+    this.setState(newState);
+  };
+
+  public updateComments = (comment: string) => {
     this.setState(state => ({
-      [field]: value,
+      comments: [...state.comments, comment],
     }));
   };
 
   render() {
-    const { value, merchant, date, currency, currentComment } = this.state;
+    const { value, merchant, date, currency, comments, currentComment } = this.state;
     return (
-      <Modal isVisible={this.props.isVisible}>
+      <Modal width="50%" isVisible={this.props.isVisible} title={'New Expense'}>
         {{
           content: (
             <CreateExpenseForm
@@ -44,8 +49,10 @@ export class CreateExpenseModalContainer extends React.PureComponent<OwnProps> {
               merchant={merchant}
               date={date}
               currency={currency}
+              comments={comments}
               currentComment={currentComment}
               updateField={this.updateField}
+              updateComments={this.updateComments}
             />
           ),
         }}

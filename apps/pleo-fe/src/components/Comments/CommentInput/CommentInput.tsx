@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { dimGray, whiteSmoke } from '../../styles/colors';
+import { dimGray, whiteSmoke } from '../../../styles/colors';
 
 interface Props {
   value: string;

@@ -4,7 +4,8 @@ import { CreateExpenseFormStateUpdater } from '../Modals/CreateExpenseModalConta
 import styled from 'styled-components';
 import { TextStrong } from '../Text/TextStrong';
 import { AmountInput } from './AmountInput';
-import { CommentInputContainer } from '../CommentInput/CommentInputContainer';
+import { CommentInputContainer } from '../Comments/CommentInput/CommentInputContainer';
+import { CommentList } from '../Comments/CommentList';
 
 interface Props {
   value: string;
@@ -12,12 +13,13 @@ interface Props {
   date: string;
   merchant: string;
   currentComment: string;
-  // comments: string[]
+  comments: string[];
   updateField: CreateExpenseFormStateUpdater;
+  updateComments: (comment: string) => void;
 }
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 30px;
 `;
 
 const FormRow = styled.div`
@@ -29,6 +31,10 @@ const FormRow = styled.div`
 
 const Label = styled.div`
   width: 20%;
+`;
+
+const Comments = styled.div`
+  margin-top: 20px;
 `;
 
 export const CreateExpenseForm = (props: Props) => (
@@ -60,5 +66,9 @@ export const CreateExpenseForm = (props: Props) => (
         onChange={e => props.updateField('date', e.target.value)}
       />
     </FormRow>
+    <Comments>
+      <CommentInputContainer onSubmit={props.updateComments} />
+      <CommentList comments={props.comments.map(c => ({ text: c }))} />
+    </Comments>
   </Container>
 );

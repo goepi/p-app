@@ -47,7 +47,7 @@ interface State {
 class ExpensesContainerInner extends React.Component<Props, State> {
   public state = {
     searchInput: '',
-    createExpenseModalVisible: false,
+    createExpenseModalVisible: true,
   };
 
   public componentDidMount() {

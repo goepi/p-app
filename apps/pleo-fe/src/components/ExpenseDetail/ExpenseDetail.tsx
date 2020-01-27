@@ -12,7 +12,7 @@ import { TextRegular } from '../Text/TextRegular';
 import { UserAvatar } from '../Avatar/UserAvatar';
 import { lightGray, whiteSmoke } from '../../styles/colors';
 import { CommentIcon } from '../Icon/CommentIcon';
-import { CommentInputContainer } from '../CommentInput/CommentInputContainer';
+import { CommentInputContainer } from '../Comments/CommentInput/CommentInputContainer';
 import { TrashIcon } from '../Icon/TrashIcon';
 
 interface Props {

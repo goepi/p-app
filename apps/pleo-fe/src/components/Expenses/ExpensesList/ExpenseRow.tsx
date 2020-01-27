@@ -7,6 +7,7 @@ import { capitalizeFirstLetters, getFormattedAmountWithCurrencyString } from '..
 import { UserAvatar } from '../../Avatar/UserAvatar';
 import { TextStrong } from '../../Text/TextStrong';
 import { CancelIcon } from '../../Icon/CancelIcon';
+import { CommentList } from '../../Comments/CommentList';
 
 interface Props {
   merchant: string;
@@ -57,25 +58,6 @@ const MerchantAndUser = styled.div`
   }
 `;
 
-const CommentRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  alignitems: center;
-  margin-top: 0.3em;
-
-  .comment-remove {
-    display: none;
-  }
-
-  &:hover .comment-remove {
-    display: inline-block;
-  }
-`;
-
-const Comments = styled.div`
-  border-left: 3px solid ${lightBlue(0.5)};
-`;
-
 export const ExpenseRow = (props: Props) => (
   <ColumnContainer>
     <RowContainer onClick={props.onSelectExpense}>
@@ -89,16 +71,7 @@ export const ExpenseRow = (props: Props) => (
       </ExpenseInfo>
     </RowContainer>
     <CommentsContainer>
-      <Comments>
-        {props.comments.map(comment => (
-          <CommentRow key={comment.id}>
-            <div style={{ flex: 1 }}>
-              <TextRegular text={comment.text} marginLeft={'0.8em'} />
-            </div>
-            <CancelIcon height={'15px'} width={'15px'} />
-          </CommentRow>
-        ))}
-      </Comments>
+      <CommentList comments={props.comments} />
     </CommentsContainer>
   </ColumnContainer>
 );

@@ -1,7 +1,7 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { AddButton } from '../shared/AddButton';
-import { SearchBar } from '../shared/SearchBar';
+import { AddButton } from '../Buttons/AddButton';
+import { SearchBar } from '../Search/SearchBar';
 import { ExpensesList } from './ExpensesList/ExpensesList';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
 
