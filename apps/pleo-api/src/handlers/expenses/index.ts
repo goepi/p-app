@@ -74,9 +74,9 @@ export const expensesHandler = {
             receipts: [],
             category: '',
             user: {
-              first: 'Pleo Test',
-              last: 'User',
-              email: 'pleo@test.com',
+              first: 'Marcus',
+              last: 'Egues',
+              email: 'marcusegues@gmail.com',
             },
           };
           allExpenses.push(newExpense);

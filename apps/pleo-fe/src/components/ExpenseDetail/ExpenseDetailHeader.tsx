@@ -37,6 +37,7 @@ export const ExpenseDetailHeader = (props: Props) => (
         fontSize={'30px'}
         text={props.merchant.charAt(0)}
         backgroundColor={brightGreen()}
+        textColor={'white'}
       />
     </WhiteCircle>
   </Container>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { lightGray } from '../../styles/colors';
+import { funBlue, lightBlue, lightGray } from '../../styles/colors';
+import { PlusIcon } from '../Icon/PlusIcon';
 
 interface Props {
   length?: string;
@@ -17,10 +18,11 @@ const Container = styled.div<Props>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 export const AddButton = (props: Props) => (
   <Container length={props.length} fontSize={props.fontSize} onClick={props.onClick}>
-    +
+    <PlusIcon color={funBlue(1)} width={'0.5em'} height={'0.5em'} />
   </Container>
 );

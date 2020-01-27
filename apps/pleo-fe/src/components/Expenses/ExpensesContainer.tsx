@@ -52,7 +52,7 @@ interface State {
 class ExpensesContainerInner extends React.Component<Props, State> {
   public state = {
     searchInput: '',
-    createExpenseModalVisible: true,
+    createExpenseModalVisible: false,
   };
 
   public componentDidMount() {
