@@ -11,6 +11,7 @@ import { AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Expense } from 'pleo-types';
 import { receiveSelectExpenseIdAction } from '../../actions/ui/syncActions';
+import { CreateExpenseModalContainer } from '../Modals/CreateExpenseModalContainer';
 
 interface ContainerProps {
   flex: number;
@@ -39,11 +40,13 @@ type Props = StateProps & DispatchProps;
 
 interface State {
   searchInput: string;
+  createExpenseModalVisible: boolean;
 }
 
 class ExpensesContainerInner extends React.Component<Props, State> {
   public state = {
     searchInput: '',
+    createExpenseModalVisible: true,
   };
 
   public componentDidMount() {
@@ -57,15 +60,23 @@ class ExpensesContainerInner extends React.Component<Props, State> {
     this.props.selectExpense(expenseId);
   };
 
+  public onShowCreateExpenseModal = () => {
+    this.setState(state => ({
+      createExpenseModalVisible: !state.createExpenseModalVisible,
+    }));
+  };
+
   public render() {
     return (
       <>
+        <CreateExpenseModalContainer isVisible={this.state.createExpenseModalVisible} />
         <PanelContainer flex={3} overflow={'scroll'}>
           <Expenses
             searchInput={this.state.searchInput}
             onSearchInput={this.onSearchInput}
             expensesByTimestamp={this.props.expensesByTimestamp}
             onSelectExpense={this.onSelectExpense}
+            onShowCreateExpenseModal={this.onShowCreateExpenseModal}
           />
         </PanelContainer>
         <PanelContainer flex={2}>

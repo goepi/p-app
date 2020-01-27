@@ -5,6 +5,7 @@ import { lightGray } from '../../styles/colors';
 interface Props {
   length?: string;
   fontSize?: string;
+  onClick?: () => void;
 }
 
 const Container = styled.div<Props>`
@@ -19,7 +20,7 @@ const Container = styled.div<Props>`
 `;
 
 export const AddButton = (props: Props) => (
-  <Container length={props.length} fontSize={props.fontSize}>
+  <Container length={props.length} fontSize={props.fontSize} onClick={props.onClick}>
     +
   </Container>
 );
