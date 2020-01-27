@@ -52,7 +52,12 @@ const SelectContainer = styled.div`
 
 export const AmountInput = (props: Props) => (
   <Container>
-    <ValueInput type="number" value={props.value} onChange={props.onChangeValue} />
+    <ValueInput
+      type="number"
+      value={props.value}
+      onChange={props.onChangeValue}
+      placeholder={'How much did you spend?'}
+    />
     <SelectContainer>
       <CurrencySelect value={props.currency} onChange={props.onChangeCurrency}>
         {currencyCodes.map(cc => (

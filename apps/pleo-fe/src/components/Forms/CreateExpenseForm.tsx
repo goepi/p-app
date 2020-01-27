@@ -1,6 +1,6 @@
 import React from 'react';
 import { GeneralInput } from './GeneralInput';
-import { CreateExpenseFormStateUpdater } from '../Modals/CreateExpenseModalContainer';
+import { CreateExpenseFormStateUpdater } from '../Modals/CreateExpenseModal';
 import styled from 'styled-components';
 import { TextStrong } from '../Text/TextStrong';
 import { AmountInput } from './AmountInput';
@@ -54,7 +54,11 @@ export const CreateExpenseForm = (props: Props) => (
       <Label>
         <TextStrong text={'Merchant'} />
       </Label>
-      <GeneralInput value={props.merchant} onChange={e => props.updateField('merchant', e.target.value)} />
+      <GeneralInput
+        value={props.merchant}
+        onChange={e => props.updateField('merchant', e.target.value)}
+        placeholder={'Where did you spend?'}
+      />
     </FormRow>
     <FormRow>
       <Label>

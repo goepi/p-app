@@ -1,9 +1,13 @@
 import React from 'react';
 import { Modal } from './Modal';
 import { CreateExpenseForm } from '../Forms/CreateExpenseForm';
+import { NewExpenseDto } from 'pleo-types';
+import { currencyCodes } from '../../constants/currencyCodes';
 
-interface OwnProps {
+interface Props {
   isVisible: boolean;
+  onCancel: () => void;
+  onSubmitCreateExpense: (newComment: NewExpenseDto) => void;
 }
 
 interface State {
@@ -15,16 +19,24 @@ interface State {
   comments: string[];
 }
 
+const initialState: State = {
+  value: '',
+  currency: '',
+  date: '',
+  merchant: '',
+  currentComment: '',
+  comments: [],
+};
+
 export type CreateExpenseFormStateUpdater = <K extends keyof State>(field: K, value: State[K]) => void;
 
-export class CreateExpenseModalContainer extends React.PureComponent<OwnProps, State> {
-  public state = {
-    value: '',
-    currency: '',
-    date: '',
-    merchant: '',
-    currentComment: '',
-    comments: [],
+export class CreateExpenseModal extends React.PureComponent<Props, State> {
+  public state = initialState;
+
+  public componentDidUpdate = (prevProps: Props) => {
+    if (prevProps.isVisible && !this.props.isVisible) {
+      this.resetFields();
+    }
   };
 
   public updateField: CreateExpenseFormStateUpdater = (field, value) => {
@@ -38,10 +50,32 @@ export class CreateExpenseModalContainer extends React.PureComponent<OwnProps, S
     }));
   };
 
+  private resetFields = () => this.setState(initialState);
+
+  public onSubmitCreateExpense = () => {
+    const { value, currency, date, merchant, comments } = this.state;
+
+    if (
+      !Number.isNaN(parseInt(value)) &&
+      currencyCodes.indexOf(currency) !== -1 &&
+      merchant &&
+      date &&
+      Array.isArray(comments)
+    ) {
+      this.props.onSubmitCreateExpense({ amount: { value, currency }, date, merchant, comments });
+    }
+  };
+
   render() {
     const { value, merchant, date, currency, comments, currentComment } = this.state;
     return (
-      <Modal width="50%" isVisible={this.props.isVisible} title={'New Expense'}>
+      <Modal
+        width="50%"
+        isVisible={this.props.isVisible}
+        title={'New Expense'}
+        onCancel={this.props.onCancel}
+        onConfirm={this.onSubmitCreateExpense}
+      >
         {{
           content: (
             <CreateExpenseForm

@@ -1,9 +1,15 @@
 import { AnyAction, Dispatch } from 'redux';
-import { requestCreateComment, requestDeleteExpense, requestGetExpenses } from '../../api/expenses';
+import {
+  requestCreateComment,
+  requestCreateExpense,
+  requestDeleteExpense,
+  requestGetExpenses,
+} from '../../api/expenses';
 import { receiveCommentAction, receiveExpenseDeletedAction, receiveExpensesAction } from './syncActions';
 import { selectMostRecentExpense } from '../ui/asyncActions';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../reducers/types';
+import { NewExpenseDto } from 'pleo-types';
 
 export const fetchExpensesAction = (): ThunkAction<
   void,
@@ -39,6 +45,17 @@ export const deleteExpenseAction = (
     await requestDeleteExpense(expenseId);
     dispatch(receiveExpenseDeletedAction(expenseId));
     dispatch(selectMostRecentExpense());
+  } catch (e) {
+    console.log('Error', e);
+  }
+};
+
+export const createExpenseAction = (
+  newExpense: NewExpenseDto
+): ThunkAction<void, RootState, undefined, AnyAction> => async dispatch => {
+  try {
+    const expense = await requestCreateExpense(newExpense);
+    dispatch(receiveExpensesAction({ expenses: [expense], total: 1 }));
   } catch (e) {
     console.log('Error', e);
   }

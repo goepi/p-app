@@ -5,6 +5,7 @@ interface Props {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
+  placeholder?: string;
 }
 
 const Input = styled.input`
@@ -20,5 +21,10 @@ const Input = styled.input`
 `;
 
 export const GeneralInput = (props: Props) => (
-  <Input type={props.type || 'text'} value={props.value} onChange={props.onChange} />
+  <Input
+    type={props.type || 'text'}
+    value={props.value}
+    onChange={props.onChange}
+    placeholder={props.placeholder}
+  />
 );

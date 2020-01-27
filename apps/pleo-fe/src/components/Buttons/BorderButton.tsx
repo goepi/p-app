@@ -20,7 +20,7 @@ const Button = styled.div<Pick<Props, 'borderColor'>>`
 interface Props {
   borderColor?: string;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const BorderButton = (props: Props) => <Button onClick={props.onClick}>{props.text}</Button>;

@@ -12,12 +12,12 @@ interface Props {
   onSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectExpense: (id: string) => void;
   expensesByTimestamp: ExpensesByTimestamp;
-  onShowCreateExpenseModal: () => void;
+  onToggleCreateExpenseModal: () => void;
 }
 
 export const Expenses = (props: Props) => (
   <Container>
-    <AddButton onClick={props.onShowCreateExpenseModal} />
+    <AddButton onClick={props.onToggleCreateExpenseModal} />
     <SearchBar value={props.searchInput} onChange={props.onSearchInput} />
     <ExpensesList expensesByTimestamp={props.expensesByTimestamp} onSelectExpense={props.onSelectExpense} />
   </Container>

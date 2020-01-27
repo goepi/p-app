@@ -1,17 +1,23 @@
-import produce, { Draft } from 'immer';
 import { ExpensesActionTypes, RECEIVE_EXPENSE_DELETED, RECEIVE_EXPENSES } from '../../actions/expenses';
 
-type State = string[];
-
-const initialState: State = [];
-
-export const allIds = produce((draft: Draft<State>, action: ExpensesActionTypes) => {
+export const allIds = (state: string[] = [], action: ExpensesActionTypes): string[] => {
   switch (action.type) {
     case RECEIVE_EXPENSES: {
-      return action.payload.expenses.map(expense => expense.id);
+      const newState = [...state];
+      const set = new Set(state);
+      action.payload.expenses.forEach(expense => {
+        if (!set.has(expense.id)) {
+          set.add(expense.id);
+          newState.push(expense.id);
+        }
+      });
+      return newState;
     }
     case RECEIVE_EXPENSE_DELETED: {
-      return draft.filter(id => id !== action.payload.expenseId);
+      return state.filter(id => id !== action.payload.expenseId);
+    }
+    default: {
+      return state;
     }
   }
-}, initialState);
+};

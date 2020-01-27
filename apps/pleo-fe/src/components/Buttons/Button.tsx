@@ -22,7 +22,7 @@ interface Props {
   backgroundColor?: string;
   marginLeft?: string;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const Button = (props: Props) => (

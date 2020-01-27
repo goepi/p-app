@@ -5,10 +5,12 @@ interface Props {
   width?: string;
   color?: string;
   display?: string;
+  onClick?: () => void;
 }
 
 export const CancelIcon = (props: Props) => (
   <svg
+    onClick={props.onClick}
     style={{ cursor: 'pointer' }}
     className="comment-remove"
     width={props.width || '25px'}

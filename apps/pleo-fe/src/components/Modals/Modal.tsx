@@ -17,6 +17,8 @@ interface Props {
     footer?: React.ReactElement;
     header?: React.ReactElement;
   };
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
 type ContentProps = Pick<Props, 'width' | 'height' | 'backgroundColor'>;
@@ -48,17 +50,18 @@ export const Modal = (props: Props) =>
   props.isVisible ? (
     <Background>
       <Content width={props.width} height={props.height}>
-        {props.children.header || <BasicHeader title={props.title} />}
+        {props.children.header || <BasicHeader title={props.title} onCancel={props.onCancel} />}
 
         {props.children.content}
 
-        {props.children.footer || <BasicFooter />}
+        {props.children.footer || <BasicFooter onConfirm={props.onConfirm} onCancel={props.onCancel} />}
       </Content>
     </Background>
   ) : null;
 
 interface HeaderProps {
   title?: string;
+  onCancel?: () => void;
 }
 
 const Header = styled.div`
@@ -79,7 +82,7 @@ const BasicHeader = (props: HeaderProps) => (
   <Header>
     <TextRegular text={props.title || ''} fontSize={'2em'} />
     <HeaderCancel>
-      <CancelIcon />
+      <CancelIcon onClick={props.onCancel} />
     </HeaderCancel>
   </Header>
 );
@@ -92,9 +95,14 @@ const Footer = styled.div`
   border-top: 1px solid ${lightGray};
 `;
 
-const BasicFooter = (props: HeaderProps) => (
+interface FooterProps {
+  onConfirm?: () => void;
+  onCancel?: () => void;
+}
+
+const BasicFooter = (props: FooterProps) => (
   <Footer>
-    <BorderButton text={'Cancel'} onClick={() => {}} />
-    <Button text={'Confirm'} marginLeft={'10px'} onClick={() => {}} />
+    <BorderButton text={'Cancel'} onClick={props.onCancel} />
+    <Button text={'Confirm'} marginLeft={'10px'} onClick={props.onConfirm} />
   </Footer>
 );

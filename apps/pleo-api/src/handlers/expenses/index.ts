@@ -42,21 +42,20 @@ export const expensesHandler = {
     }
   },
   createExpense: (req: Request, res: Response) => {
-    const value = typeof req.body.amount.value === 'number' ? req.body.amount.value : false;
+    console.log(1, req.body);
+    const value = typeof parseInt(req.body.amount.value) === 'number' ? req.body.amount.value : false;
     const currency = typeof req.body.amount.currency === 'string' ? req.body.amount.currency : false;
-    const date = typeof req.body.date === 'number' ? req.body.date : false;
+    const date = typeof new Date(req.body.date) === 'object' ? new Date(req.body.date).getTime() : false;
     const merchant = typeof req.body.merchant === 'string' ? req.body.merchant : false;
     const comments =
       Array.isArray(req.body.comments) && req.body.comments.every((c: any) => typeof c === 'string')
         ? req.body.comments
         : false;
 
+    console.log(value, currency, date, merchant, comments);
     if (value && currency && date && merchant && comments) {
-      console.log(1);
       dataInterface.read('expenses', 'expenses', (err, allExpenses) => {
-        console.log(2);
         if (!err && allExpenses !== undefined) {
-          console.log(3);
           const newExpenseId = v4();
 
           const newComments = comments.map((text: string) => ({

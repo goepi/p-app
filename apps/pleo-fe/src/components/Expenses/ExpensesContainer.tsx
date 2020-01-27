@@ -6,12 +6,16 @@ import { connect } from 'react-redux';
 import { RootState } from '../../reducers/types';
 import { getExpensesByTimestamp, getSelectedExpense, getSelectedExpenseId } from '../../reducers/selectors';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
-import { createCommentAction, deleteExpenseAction, fetchExpensesAction } from '../../actions/expenses';
-import { AnyAction } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { Expense } from 'pleo-types';
+import {
+  createCommentAction,
+  createExpenseAction,
+  deleteExpenseAction,
+  fetchExpensesAction,
+} from '../../actions/expenses';
+import { ThunkDispatch } from 'redux-thunk';
+import { Expense, NewExpenseDto } from 'pleo-types';
 import { receiveSelectExpenseIdAction } from '../../actions/ui/syncActions';
-import { CreateExpenseModalContainer } from '../Modals/CreateExpenseModalContainer';
+import { CreateExpenseModal } from '../Modals/CreateExpenseModal';
 
 interface ContainerProps {
   flex: number;
@@ -35,6 +39,7 @@ interface DispatchProps {
   deleteExpense: (expenseId: string) => void;
   selectExpense: (expenseId: string) => void;
   createComment: (expenseId: string, comment: string) => void;
+  createExpense: (newExpense: NewExpenseDto) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -61,23 +66,32 @@ class ExpensesContainerInner extends React.Component<Props, State> {
     this.props.selectExpense(expenseId);
   };
 
-  public onShowCreateExpenseModal = () => {
+  public onToggleCreateExpenseModal = () => {
     this.setState(state => ({
       createExpenseModalVisible: !state.createExpenseModalVisible,
     }));
   };
 
+  public onCreateExpense = (newExpense: NewExpenseDto) => {
+    this.props.createExpense(newExpense);
+    this.onToggleCreateExpenseModal();
+  };
+
   public render() {
     return (
       <>
-        <CreateExpenseModalContainer isVisible={this.state.createExpenseModalVisible} />
+        <CreateExpenseModal
+          isVisible={this.state.createExpenseModalVisible}
+          onCancel={this.onToggleCreateExpenseModal}
+          onSubmitCreateExpense={this.onCreateExpense}
+        />
         <PanelContainer flex={3} overflow={'scroll'}>
           <Expenses
             searchInput={this.state.searchInput}
             onSearchInput={this.onSearchInput}
             expensesByTimestamp={this.props.expensesByTimestamp}
             onSelectExpense={this.onSelectExpense}
-            onShowCreateExpenseModal={this.onShowCreateExpenseModal}
+            onToggleCreateExpenseModal={this.onToggleCreateExpenseModal}
           />
         </PanelContainer>
         <PanelContainer flex={2}>
@@ -103,6 +117,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, any>) => ({
   deleteExpense: (expenseId: string) => dispatch(deleteExpenseAction(expenseId)),
   selectExpense: (expenseId: string) => dispatch(receiveSelectExpenseIdAction(expenseId)),
   createComment: (expenseId: string, comment: string) => dispatch(createCommentAction(expenseId, comment)),
+  createExpense: (newExpense: NewExpenseDto) => dispatch(createExpenseAction(newExpense)),
 });
 
 export const ExpensesContainer = connect(mapStateToProps, mapDispatchToProps)(ExpensesContainerInner);
