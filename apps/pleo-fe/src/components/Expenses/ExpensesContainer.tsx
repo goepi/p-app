@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ExpenseDetail } from '../ExpenseDetail/ExpenseDetail';
 import { connect } from 'react-redux';
 import { RootState } from '../../reducers/types';
-import { getExpensesByTimestamp, getSelectedExpense, getSelectedExpenseId } from '../../reducers/selectors';
+import { getAllExpenses, getSelectedExpense, getSelectedExpenseId } from '../../reducers/selectors';
 import { ExpensesByTimestamp } from '../../reducers/expenses/types';
 import {
   createCommentAction,
@@ -16,6 +16,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Expense, NewExpenseDto } from 'pleo-types';
 import { receiveSelectExpenseIdAction } from '../../actions/ui/syncActions';
 import { CreateExpenseModal } from '../Modals/CreateExpenseModal';
+import { filterExpensesBySearch } from '../../modules/search';
 
 interface ContainerProps {
   flex: number;
@@ -31,7 +32,7 @@ const PanelContainer = styled.div<ContainerProps>`
 interface StateProps {
   selectedExpenseId: string | null;
   selectedExpense: Expense | null;
-  expensesByTimestamp: ExpensesByTimestamp;
+  allExpenses: Expense[];
 }
 
 interface DispatchProps {
@@ -77,7 +78,31 @@ class ExpensesContainerInner extends React.Component<Props, State> {
     this.onToggleCreateExpenseModal();
   };
 
+  public getExpensesByTimestamp = (expenses: Expense[]) => {
+    const expensesByTimestamp: ExpensesByTimestamp = {};
+
+    expenses.forEach((expense: Expense) => {
+      if (expensesByTimestamp[expense.date]) {
+        expensesByTimestamp[expense.date].push(expense);
+      } else {
+        expensesByTimestamp[expense.date] = [expense];
+      }
+    });
+
+    return expensesByTimestamp;
+  };
+
+  public getFilteredExpensesByTimestamp = () => {
+    if (!this.state.searchInput) {
+      return this.getExpensesByTimestamp(this.props.allExpenses);
+    } else {
+      const searchResults = filterExpensesBySearch(this.props.allExpenses, this.state.searchInput);
+      return this.getExpensesByTimestamp(searchResults as Expense[]);
+    }
+  };
+
   public render() {
+    console.log(this.getFilteredExpensesByTimestamp());
     return (
       <>
         <CreateExpenseModal
@@ -89,7 +114,7 @@ class ExpensesContainerInner extends React.Component<Props, State> {
           <Expenses
             searchInput={this.state.searchInput}
             onSearchInput={this.onSearchInput}
-            expensesByTimestamp={this.props.expensesByTimestamp}
+            expensesByTimestamp={this.getFilteredExpensesByTimestamp()}
             onSelectExpense={this.onSelectExpense}
             onToggleCreateExpenseModal={this.onToggleCreateExpenseModal}
           />
@@ -109,7 +134,7 @@ class ExpensesContainerInner extends React.Component<Props, State> {
 const mapStateToProps = (state: RootState) => ({
   selectedExpenseId: getSelectedExpenseId(state),
   selectedExpense: getSelectedExpense(state),
-  expensesByTimestamp: getExpensesByTimestamp(state),
+  allExpenses: getAllExpenses(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, any>) => ({
