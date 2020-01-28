@@ -38,7 +38,6 @@ export const Links = () => {
   return (
     <Container>
       <SideNavLink to={'/expenses'} text={'Expenses'} />
-      <SideNavLink to={'/profile'} text={'Profile'} />
     </Container>
   );
 };

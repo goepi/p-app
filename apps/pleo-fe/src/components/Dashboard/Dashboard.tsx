@@ -13,6 +13,6 @@ const Container = styled.div`
 export const Dashboard = () => (
   <Container>
     <SideNav />
-    <Route to="/expenses" component={ExpensesContainer} />
+    <Route path="/expenses" component={ExpensesContainer} />
   </Container>
 );
