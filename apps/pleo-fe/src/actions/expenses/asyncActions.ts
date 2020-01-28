@@ -57,6 +57,7 @@ export const createExpenseAction = (
   try {
     const expense = await requestCreateExpense(newExpense);
     dispatch(receiveExpensesAction({ expenses: [expense], total: 1 }));
+    dispatch(selectMostRecentExpense());
   } catch (e) {
     console.log('Error', e);
   }

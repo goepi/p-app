@@ -10,7 +10,6 @@ const options: Fuse.FuseOptions<Expense> = {
 
 export const filterExpenses = (expenses: Expense[], search: string) => {
   const fuse = new Fuse(expenses, options);
-  console.log('Searching for ', search);
   return fuse.search(search);
 };
 

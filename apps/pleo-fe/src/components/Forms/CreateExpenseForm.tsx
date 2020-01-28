@@ -65,7 +65,7 @@ export const CreateExpenseForm = (props: Props) => (
         <TextStrong text={'Date'} />
       </Label>
       <GeneralInput
-        type={'date'}
+        type={'datetime-local'}
         value={props.date}
         onChange={e => props.updateField('date', e.target.value)}
       />

@@ -17,6 +17,7 @@ import { Expense, NewExpenseDto } from 'pleo-types';
 import { receiveSelectExpenseIdAction } from '../../actions/ui/syncActions';
 import { CreateExpenseModal } from '../Modals/CreateExpenseModal';
 import { filterExpensesBySearch } from '../../modules/search';
+import { getStartOfDateTimestamp } from '../../utils/format';
 
 interface ContainerProps {
   flex: number;
@@ -78,26 +79,27 @@ class ExpensesContainerInner extends React.Component<Props, State> {
     this.onToggleCreateExpenseModal();
   };
 
-  public getExpensesByTimestamp = (expenses: Expense[]) => {
+  public getExpensesByStartOfDayTimestamp = (expenses: Expense[]) => {
     const expensesByTimestamp: ExpensesByTimestamp = {};
 
     expenses.forEach((expense: Expense) => {
-      if (expensesByTimestamp[expense.date]) {
-        expensesByTimestamp[expense.date].push(expense);
+      const startOfDayTs = getStartOfDateTimestamp(expense.date);
+      if (expensesByTimestamp[startOfDayTs]) {
+        expensesByTimestamp[startOfDayTs].push(expense);
       } else {
-        expensesByTimestamp[expense.date] = [expense];
+        expensesByTimestamp[startOfDayTs] = [expense];
       }
     });
 
     return expensesByTimestamp;
   };
 
-  public getFilteredExpensesByTimestamp = () => {
+  public getFilteredExpensesByStartOfDayTimestamp = () => {
     if (!this.state.searchInput) {
-      return this.getExpensesByTimestamp(this.props.allExpenses);
+      return this.getExpensesByStartOfDayTimestamp(this.props.allExpenses);
     } else {
       const searchResults = filterExpensesBySearch(this.props.allExpenses, this.state.searchInput);
-      return this.getExpensesByTimestamp(searchResults as Expense[]);
+      return this.getExpensesByStartOfDayTimestamp(searchResults as Expense[]);
     }
   };
 
@@ -113,7 +115,7 @@ class ExpensesContainerInner extends React.Component<Props, State> {
           <Expenses
             searchInput={this.state.searchInput}
             onSearchInput={this.onSearchInput}
-            expensesByTimestamp={this.getFilteredExpensesByTimestamp()}
+            expensesByTimestamp={this.getFilteredExpensesByStartOfDayTimestamp()}
             onSelectExpense={this.onSelectExpense}
             onToggleCreateExpenseModal={this.onToggleCreateExpenseModal}
           />

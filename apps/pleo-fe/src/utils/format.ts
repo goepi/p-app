@@ -9,7 +9,7 @@ export const getStartOfDateTimestamp = (timestamp: number) => {
   return startOfDateUTC.getTime() + date.getTimezoneOffset() * msInAMinute;
 };
 
-export const getUserFriendlyDateString = (timestamp: number, showTime: boolean) => {
+export const getUserFriendlyDateString = (timestamp: number, showTime: boolean, merchant?: string) => {
   const date = new Date(timestamp);
 
   const tsStartOfDay = getStartOfDateTimestamp(new Date().getTime());
@@ -24,7 +24,7 @@ export const getUserFriendlyDateString = (timestamp: number, showTime: boolean) 
   if (timestamp >= tsStartOfDay && timestamp < tsStartOfDay + msFullDay) {
     // timestamp within 24 hours ahead of start of timestamp's day
     return showTime ? `Today, ${date.toLocaleTimeString('en-US', recentDateOptions)}` : 'Today';
-  } else if (timestamp < tsStartOfDay && timestamp > tsStartOfDay - msFullDay) {
+  } else if (timestamp < tsStartOfDay && timestamp >= tsStartOfDay - msFullDay) {
     // timestamp within 24 hours behind start of timestamp's day
     return showTime ? `Yesterday, ${date.toLocaleTimeString('en-US', recentDateOptions)}` : 'Yesterday';
   } else {
