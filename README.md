@@ -95,3 +95,9 @@ I'm using nodemon for automatically restarting the api server on changes to the 
   * It has different states: no image selected, image selected but not submitted, and image submitted
   * in the not submitted state, there is an overlay on the image preview, and a button for you to actually submit to the backend
   * the images are persisted to disk on the backend server, and the images are fetched and shown for each of the persisted images
+  
+# Screenshot
+
+  
+![Screenshot](/screenshot.png)
+Format: ![Alt Text](url)
