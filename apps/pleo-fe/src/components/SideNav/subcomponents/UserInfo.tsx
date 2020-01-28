@@ -14,7 +14,7 @@ const Container = styled.div<Props>`
 `;
 
 export const UserInfo = (props: Props) => (
-  <Container marginTop={props.marginTop}>
+  <Container data-cy="side-nav-user-info" marginTop={props.marginTop}>
     <Avatar length={'75px'} text={'M'} textColor={'white'} />
   </Container>
 );

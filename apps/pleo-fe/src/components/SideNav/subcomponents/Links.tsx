@@ -36,7 +36,7 @@ const SideNavLink = (props: NavLinkProps) => (
 
 export const Links = () => {
   return (
-    <Container>
+    <Container data-cy="side-nav-links">
       <SideNavLink to={'/expenses'} text={'Expenses'} />
     </Container>
   );

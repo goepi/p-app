@@ -34,7 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ts:compile:fe": "tsc --noEmit -p ./tsconfig.json"
+    "ts:compile:fe": "tsc --noEmit -p ./tsconfig.json",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"

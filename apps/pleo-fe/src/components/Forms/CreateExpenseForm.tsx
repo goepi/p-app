@@ -38,7 +38,7 @@ const Comments = styled.div`
 `;
 
 export const CreateExpenseForm = (props: Props) => (
-  <Container>
+  <Container data-cy="createExpenseForm">
     <FormRow>
       <Label>
         <TextStrong text={'Amount'} />

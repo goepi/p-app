@@ -48,7 +48,7 @@ const Content = styled.div<ContentProps>`
 
 export const Modal = (props: Props) =>
   props.isVisible ? (
-    <Background>
+    <Background data-cy="modal">
       <Content width={props.width} height={props.height}>
         {props.children.header || <BasicHeader title={props.title} onCancel={props.onCancel} />}
 

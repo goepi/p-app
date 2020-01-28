@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Logo = (props: Props) => (
-  <svg height={props.height || 63} viewBox="0 0 151 63">
+  <svg data-cy="pleo-logo" height={props.height || 63} viewBox="0 0 151 63">
     <title>pleo</title>
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none">
       <g id="pleo" transform="translate(1.000000, 0.000000)" stroke="#FF3366" strokeWidth="3">

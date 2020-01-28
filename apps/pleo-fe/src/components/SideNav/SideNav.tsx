@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 export const SideNav = () => (
-  <Container>
+  <Container data-cy="sideNav">
     <Logo height={35} />
     <UserInfo marginTop={30} />
     <Links />

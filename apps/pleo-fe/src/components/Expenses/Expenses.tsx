@@ -28,7 +28,7 @@ interface Props {
 export const Expenses = (props: Props) => (
   <Container>
     <HeaderContainer>
-      <AddButtonContainer>
+      <AddButtonContainer data-cy="createExpenseButton">
         <AddButton onClick={props.onToggleCreateExpenseModal} />
       </AddButtonContainer>
       <SearchBar value={props.searchInput} onChange={props.onSearchInput} />

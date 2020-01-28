@@ -20,7 +20,7 @@ const MainContent = styled.div`
 export const Dashboard = () => (
   <Container>
     <SideNav />
-    <MainContent>
+    <MainContent data-cy="mainContent">
       <Route path="/expenses" component={ExpensesContainer} />
     </MainContent>
   </Container>

@@ -21,7 +21,7 @@ interface State {
 
 const initialState: State = {
   value: '',
-  currency: '',
+  currency: 'USD',
   date: '',
   merchant: '',
   currentComment: '',
