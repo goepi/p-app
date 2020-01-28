@@ -1,5 +1,8 @@
 # Pleo Coding Challenge: Overview
-I looked at pleo's website, and saw a screenshot of what one page in the pleo dashboard looks like, and I decided to do this challenge based off of that screenshot, on eye alone.
+
+## Screenshot
+
+![Screenshot](/screenshot.png)
 
 This is a **lerna** mono-repo containing three packages: `pleo-be`, `pleo-fe`, and `pleo-types`.
 * `pleo-be` is the original api code plus a lot of alterations and extra features, as I describe below.
@@ -96,8 +99,5 @@ I'm using nodemon for automatically restarting the api server on changes to the 
   * in the not submitted state, there is an overlay on the image preview, and a button for you to actually submit to the backend
   * the images are persisted to disk on the backend server, and the images are fetched and shown for each of the persisted images
   
-# Screenshot
 
-  
-![Screenshot](/screenshot.png)
-Format: ![Alt Text](url)
+
