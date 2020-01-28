@@ -1,4 +1,4 @@
-import { AnyAction, Dispatch } from 'redux';
+import { AnyAction } from 'redux';
 import {
   requestCreateComment,
   requestCreateExpense,

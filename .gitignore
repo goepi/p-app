@@ -8,7 +8,7 @@ lerna-debug.log
 
 https
 
-apps/pleo-api/src/.data
+apps/pleo-api/src/data
 apps/pleo-fe/envs/
 
 **/*/build

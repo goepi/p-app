@@ -15,7 +15,7 @@ export const getAllFilesInDirectory = (
   directory: string,
   callback: (err: Error | false, files?: string[]) => void
 ) => {
-  fs.readdir(path.join(__dirname, '../.data'), (err, files) => {
+  fs.readdir(path.join(__dirname, '../data'), (err, files) => {
     if (!err) {
       callback(false, files);
     }

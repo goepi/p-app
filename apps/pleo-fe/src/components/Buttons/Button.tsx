@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { StyledProps } from 'styled-components';
+import styled from 'styled-components';
 import { deepPink } from '../../styles/colors';
 
 const Container = styled.div<Pick<Props, 'backgroundColor' | 'marginLeft'>>`

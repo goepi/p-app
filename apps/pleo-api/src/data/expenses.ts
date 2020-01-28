@@ -1,5 +1,5 @@
 // I used the following function to convert the original JS object below into individual JSON files
-import { dataInterface } from '../data';
+import { dataInterface } from '../dataInterface';
 
 export const objectToFiles = () => {
   const newExpenses: Expense[] = expenses.map((e: any) => ({

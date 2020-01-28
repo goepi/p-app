@@ -30,7 +30,7 @@ interface Props {
 
 export const ExpenseDetailHeader = (props: Props) => (
   <Container>
-    <object type="image/svg+xml" width="100%" data={HeaderSvg} />
+    <object aria-label="expense-merchant-avatar" type="image/svg+xml" width="100%" data={HeaderSvg} />
     <WhiteCircle>
       <Avatar
         length={'50px'}

@@ -29,7 +29,7 @@ interface DataInterface {
 }
 
 export const dataInterface: DataInterface = {
-  baseDir: path.join(__dirname, '../.data'),
+  baseDir: path.join(__dirname, '../data'),
 
   // Write data to a file
   create: (

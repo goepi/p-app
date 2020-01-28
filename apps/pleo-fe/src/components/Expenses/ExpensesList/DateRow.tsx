@@ -2,7 +2,7 @@ import React from 'react';
 import { TextRegular } from '../../Text/TextRegular';
 import styled from 'styled-components';
 import { getUserFriendlyDateString } from '../../../utils/format';
-import { dimGray, lightGray } from '../../../styles/colors';
+import { dimGray } from '../../../styles/colors';
 
 interface Props {
   timestamp: number;

@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { lightBlue, lightGray } from '../../../styles/colors';
+import { lightGray } from '../../../styles/colors';
 import { TextRegular } from '../../Text/TextRegular';
 import { Comment } from 'pleo-types';
 import { capitalizeFirstLetters, getFormattedAmountWithCurrencyString } from '../../../utils/format';
 import { UserAvatar } from '../../Avatar/UserAvatar';
 import { TextStrong } from '../../Text/TextStrong';
-import { CancelIcon } from '../../Icon/CancelIcon';
 import { CommentList } from '../../Comments/CommentList';
 
 interface Props {

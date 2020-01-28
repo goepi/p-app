@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { dataInterface } from '../../data';
+import { dataInterface } from '../../dataInterface';
 import { v4 } from 'uuid';
 import path from 'path';
 import { Comment } from 'pleo-types/src/comments';
@@ -172,7 +172,7 @@ export const expensesHandler = {
             if (expense) {
               const receiptId = v4();
               const type = receipt.mimetype.split('/')[1];
-              receipt.mv(path.join(__dirname, `../../.data/receipts/${receiptId}.${type}`), err => {
+              receipt.mv(path.join(__dirname, `../../data/receipts/${receiptId}.${type}`), err => {
                 if (!err) {
                   expense.receipts.push(receiptId);
                   dataInterface.update('expenses', 'expenses', allExpenses, writeErr => {

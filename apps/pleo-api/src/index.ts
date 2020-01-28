@@ -27,7 +27,7 @@ app.use(
   })
 );
 
-app.use('/receipts', express.static(path.join(__dirname, '.data/receipts')));
+app.use('/receipts', express.static(path.join(__dirname, 'data/receipts')));
 
 app.use('/expenses', expensesRouter);
 

@@ -218,19 +218,19 @@ export const expensesFixture2 = (): Expense[] => [
 ];
 
 export const commentFixture1 = (): Comment => ({
-  id: 1,
+  id: '1',
   text: 'This is a test comment',
   expenseId: '801f3b05-166d-4456-97ed-2d0f6f14caf0',
   date: 1580126400000,
 });
 export const commentFixture2 = (): Comment => ({
-  id: 2,
+  id: '2',
   text: 'This is another test comment',
   expenseId: '801f3b05-166d-4456-97ed-2d0f6f14caf0',
   date: 1580126400000,
 });
 export const commentFixture3 = (): Comment => ({
-  id: 1,
+  id: '3',
   text: 'And one more test comment',
   expenseId: '020fdeb6-d9c1-4a09-bdd3-8f5dd381c83c',
   date: 1580126400000,

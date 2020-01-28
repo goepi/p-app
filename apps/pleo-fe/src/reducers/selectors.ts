@@ -1,7 +1,6 @@
 import { RootState } from './types';
 import * as expensesSelectors from './expenses/selectors';
 import * as uiSelectors from './ui/selectors';
-import { ExpensesByTimestamp } from './expenses/types';
 import { Expense } from 'pleo-types';
 
 export const getAllExpenses = (state: RootState) => expensesSelectors.getAllExpenses(state.expenses);
