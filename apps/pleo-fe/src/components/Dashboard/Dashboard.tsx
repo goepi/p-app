@@ -10,9 +10,18 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+const MainContent = styled.div`
+  flex: 5;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+`;
+
 export const Dashboard = () => (
   <Container>
     <SideNav />
-    <Route path="/expenses" component={ExpensesContainer} />
+    <MainContent>
+      <Route path="/expenses" component={ExpensesContainer} />
+    </MainContent>
   </Container>
 );
