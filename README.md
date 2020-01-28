@@ -104,7 +104,10 @@ I'm using nodemon for automatically restarting the api server on changes to the 
 #### tests
 
 * I wrote tests for the expenses reducer, using fixtures and simply testing the output of calling the reducer with certain inputs and action types.
-* I wrote some simple end-to-end Cypress tests. These tests are doing things like checking if the correct elements are on the page and in the correct order, and also tests what happens when you interact with the page by clicking on links. For example, I test that the modal to create a new expense appears when you click the button with the blue plus icon.
+* I wrote some simple end-to-end Cypress tests. 
+  * These tests check if the correct elements are displayed, and if they are in the correct order; they also test what happens when you interact with the page by clicking on links. For example, I test that the modal to create a new expense appears when you click the button with the blue plus icon.
 * Under normal circumstances, and depending on the requirements, much more testing could be added:
   * unit tests can be applied to individual modules or methods on components. Examples in this project would be the search function and utilities that do things like format dates and perform calculations on expense timestamps.
+  * testing the individual component lifecycles
+  * testing the async actions; for example testing what happens when you dispatch an async action in terms of the API calls made and which other actions are dispatched as a result, and how this affects the redux store
 
