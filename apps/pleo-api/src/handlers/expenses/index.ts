@@ -42,7 +42,6 @@ export const expensesHandler = {
     }
   },
   createExpense: (req: Request, res: Response) => {
-    console.log(1, req.body);
     const value = typeof parseInt(req.body.amount.value) === 'number' ? req.body.amount.value : false;
     const currency = typeof req.body.amount.currency === 'string' ? req.body.amount.currency : false;
     const date = typeof new Date(req.body.date) === 'object' ? new Date(req.body.date).getTime() : false;
@@ -163,7 +162,6 @@ export const expensesHandler = {
     const receipt =
       req.files && req.files.receipt && !Array.isArray(req.files.receipt) ? req.files.receipt : false;
 
-    console.log(receipt, req.files, req.files && req.files.receipt);
     if (receipt) {
       const id = req.params.id;
       if (id) {
