@@ -1,8 +1,10 @@
-# Pleo Coding Challenge: Overview
+# Pleo Coding Challenge
 
 ## Screenshot
 
 ![Screenshot](/screenshot.png)
+
+## Overview
 
 This is a **lerna** mono-repo containing three packages: `pleo-be`, `pleo-fe`, and `pleo-types`.
 * `pleo-be` is the original api code plus a lot of alterations and extra features, as I describe below.
