@@ -39,7 +39,7 @@ I'm using nodemon for automatically restarting the api server on changes to the 
 
 ## `pleo-be`
 
-* I added a custom module (`src/data/index.ts`) to perform CRUD operations on disk for data representing expenses. Data is saved in `src/.data`. Data is thus persisted between server restarts, in particular newly created expenses and comments.
+* I added a custom module (`src/data/index.ts`) to perform CRUD operations on disk for data representing expenses. Data is saved in `src/.data`. Data is thus persisted between server restarts, in particular newly created expenses and comments. Note that in the case of creating an expense or comments, I am not sanitizing the data, which under normal circumstances in a real world app would be absolutely essential to prevent XSS.
 
 * I improved the organization of the modules, and separated the code defining the routes from the code implementing the handlers.
 
@@ -101,5 +101,10 @@ I'm using nodemon for automatically restarting the api server on changes to the 
   * in the not submitted state, there is an overlay on the image preview, and a button for you to actually submit to the backend
   * the images are persisted to disk on the backend server, and the images are fetched and shown for each of the persisted images
   
+#### tests
 
+* I wrote tests for the expenses reducer, using fixtures and simply testing the output of calling the reducer with certain inputs and action types.
+* I wrote some simple end-to-end Cypress tests. These tests are doing things like checking if the correct elements are on the page and in the correct order, and also tests what happens when you interact with the page by clicking on links. For example, I test that the modal to create a new expense appears when you click the button with the blue plus icon.
+* Under normal circumstances, and depending on the requirements, much more testing could be added:
+  * unit tests can be applied to individual modules or methods on components. Examples in this project would be the search function and utilities that do things like format dates and perform calculations on expense timestamps.
 
